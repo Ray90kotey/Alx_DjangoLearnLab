@@ -2,25 +2,21 @@ from LibraryProject.relationship_app.models import Author, Book, Library, Librar
 
 
 # Query all books by a specific author
-def books_by_author(author_name):
+def query_books_by_author(author_name):
     author = Author.objects.get(name=author_name)
-    return author.books.all()
+    books = Book.objects.filter(author=author)
+    return books
 
 
 # List all books in a library
-def books_in_library(library_name):
+def query_books_in_library(library_name):
     library = Library.objects.get(name=library_name)
-    return library.books.all()
+    books = library.books.all()
+    return books
 
 
 # Retrieve the librarian for a library
-def librarian_for_library(library_name):
+def query_librarian_for_library(library_name):
     library = Library.objects.get(name=library_name)
-    return library.librarian
-
-
-# Sample usage (for testing in Django shell)
-if __name__ == "__main__":
-    print(books_by_author("Chinua Achebe"))
-    print(books_in_library("Central Library"))
-    print(librarian_for_library("Central Library"))
+    librarian = Librarian.objects.get(library=library)
+    return librarian
